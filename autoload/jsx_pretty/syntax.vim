@@ -1,7 +1,5 @@
 function! jsx_pretty#syntax#highlight()
 
-  let s:highlight_close_tag = get(g:, 'vim_jsx_pretty_highlight_close_tag', 0)
-
   " <tag id="sample">
   " ~~~~~~~~~~~~~~~~~
   " and self close tag
@@ -66,7 +64,7 @@ function! jsx_pretty#syntax#highlight()
         \ contains=jsxTagName
         \ nextgroup=jsxAttrib
         \ skipwhite
-        \ skipempty ' .(s:highlight_close_tag ? 'transparent' : '')
+        \ skipempty '
  
   " <foo.bar>
   "     ~
@@ -106,27 +104,6 @@ function! jsx_pretty#syntax#highlight()
         \ skipempty
         \ contains=jsxAttribKeyword
         \ display
-
-  " <MyComponent ...>
-  "  ~~~~~~~~~~~
-  " NOT
-  " <someCamel ...>
-  "      ~~~~~
-  exe 'syntax match jsxComponentName
-        \ +\<[A-Z][\$0-9A-Za-z]\+\>+
-        \ contained
-        \ display ' .(s:highlight_close_tag ? 'transparent' : '')
-
-  " <tag key={this.props.key}>
-  "  ~~~
-  exe 'syntax match jsxTagName
-        \ +\<[-:_\.\$0-9A-Za-z]\+\>+
-        \ contained
-        \ contains=jsxComponentName,jsxDot,jsxNamespace
-        \ nextgroup=jsxAttrib
-        \ skipempty
-        \ skipwhite
-        \ display ' .(s:highlight_close_tag ? 'transparent' : '')
 
   " <tag id="sample">
   "         ~~~~~~~~
@@ -178,8 +155,6 @@ function! jsx_pretty#syntax#highlight()
 
   " Highlight the tag name
   highlight def link jsxTag Function
-  highlight def link jsxTagName Identifier
-  highlight def link jsxComponentName Function
 
   highlight def link jsxAttrib Type
   highlight def link jsxAttribKeyword jsxAttrib
@@ -189,19 +164,14 @@ function! jsx_pretty#syntax#highlight()
   highlight def link jsxNamespace Operator
 
   " Highlight the jsxCloseString (i.e. />), jsxPunct (i.e. <,>) and jsxCloseTag (i.e. <//>)
-  highlight def link jsxCloseString Comment
+  highlight def link jsxCloseString GruvboxRed
   highlight def link jsxPunct jsxCloseString
-  highlight def link jsxOpenPunct jsxPunct
+  highlight def link jsxOpenPunct GruvboxBlue
   highlight def link jsxClosePunct jsxPunct
   highlight def link jsxCloseTag jsxCloseString
 
   highlight def link jsxComment Comment
   highlight def link jsxSpreadOperator Operator
-
-  if s:highlight_close_tag
-    highlight! def link jsxOpenPunct jsxTag
-    highlight! def link jsxCloseString Identifier
-  endif
 
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
 
