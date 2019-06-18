@@ -126,6 +126,7 @@ function! jsx_pretty#syntax#highlight()
   highlight def link jsxCloseString GruvboxRed
   highlight def link jsxPunct jsxCloseString
   highlight def link jsxOpenPunct GruvboxBlue
+  highlight def link jsxOpenTag GruvboxBlue
   highlight def link jsxClosePunct jsxPunct
   highlight def link jsxCloseTag jsxCloseString
 
