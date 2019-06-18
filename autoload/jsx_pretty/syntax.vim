@@ -112,53 +112,12 @@ function! jsx_pretty#syntax#highlight()
   "         ~~~~~~~~
   syntax region jsxString start=+\z(["']\)+  skip=+\\\%(\z1\|$\)+  end=+\z1+ contained contains=@Spell display
 
-  let s:tags = get(g:, 'vim_jsx_pretty_template_tags', ['html', 'raw'])
-  let s:enable_tagged_jsx = !empty(s:tags)
-
-  " add support to JSX inside the tagged template string
-  " https://github.com/developit/htm
-  if s:enable_tagged_jsx
-    exe 'syntax region jsxTaggedRegion
-          \ start=+\%('. join(s:tags, '\|') .'\)\@<=`+ms=s+1
-          \ end=+`+me=e-1
-          \ extend
-          \ contained
-          \ containedin=jsTemplateString,javascriptTemplate,javaScriptStringT,typescriptStringB
-          \ contains=jsxElement'
-
-    syntax region jsxEscapeJs
-          \ start=+\${+
-          \ end=++
-          \ extend
-          \ contained
-          \ contains=jsTemplateExpression,javascriptTemplateSubstitution,javaScriptEmbed,typescriptInterpolation
-
-    syntax region jsxOpenTag
-          \ matchgroup=jsxOpenPunct
-          \ start=+<\%(\${\)\@=+
-          \ matchgroup=NONE
-          \ end=++
-          \ contained
-          \ contains=jsxEscapeJs
-          \ nextgroup=jsxAttrib,jsxSpreadOperator
-          \ skipwhite
-          \ skipempty
-
-    syntax keyword jsxAttribKeyword class contained display
-
-    syntax match jsxSpreadOperator +\.\.\.+ contained display nextgroup=jsxEscapeJs skipwhite
-
-    syntax match jsxCloseTag +<//>+ display
-
-    syntax match jsxComment +<!--\_.\{-}-->+ display
-  endif
-
   " Highlight the tag name
   highlight def link jsxTag Function
 
-  highlight def link jsxAttrib Type
+  highlight def link jsxAttrib GruvboxYellow
   highlight def link jsxAttribKeyword jsxAttrib
-  highlight def link jsxEqual Operator
+  highlight def link jsxEqual GruvboxOrange
   highlight def link jsxString String
   highlight def link jsxDot Operator
   highlight def link jsxNamespace Operator
