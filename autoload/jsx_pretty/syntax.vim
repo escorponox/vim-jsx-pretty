@@ -136,9 +136,9 @@ function! jsx_pretty#syntax#highlight()
   let s:vim_jsx_pretty_colorful_config = get(g:, 'vim_jsx_pretty_colorful_config', 0)
 
   if s:vim_jsx_pretty_colorful_config == 1
-    highlight def link jsObjectKey GruvboxBlueSign
-    highlight def link jsArrowFuncArgs Type
-    highlight def link jsFuncArgs Type
+    highlight def link jsObjectKey GruvboxBlue
+    highlight def link jsArrowFuncArgs GruvboxYellow
+    highlight def link jsFuncArgs GruvboxOrange
   endif
 
 endfunction
